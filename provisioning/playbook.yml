@@ -10,9 +10,9 @@
     project_uid: 501
     project_gid: 501
     server_name: velobleu.local
-    db_app_name: paiement
-    db_app_user: paiement
-    db_app_password: paiement
+    db_app_name: velobleu
+    db_app_user: velobleu
+    db_app_password: velobleu
 
 
   handlers:
