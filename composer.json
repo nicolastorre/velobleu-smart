@@ -4,7 +4,8 @@
     "type": "project",
     "require": {
         "silex/silex": "2.1.0",
-        "doctrine/dbal": "2.5.12"
+        "doctrine/dbal": "2.5.12",
+        "guzzlehttp/guzzle": "6.2.3"
     },
     "autoload" : {
         "psr-4": {"Ntorre\\Velobleu\\": "site/src"}
