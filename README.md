@@ -5,6 +5,7 @@ Web app with web service to find easier a velo bleu using statistics.
 * Virtualbox >= 5.0.32
 * Vagrant >= 1.7.4
 * Ansible >= 2.3.0
+* Composer >= 1.4.1
 
 ## Get started
 

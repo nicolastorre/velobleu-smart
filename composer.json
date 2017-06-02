@@ -1,0 +1,22 @@
+{
+    "name": "ntorre/velobleu",
+    "description": "Web app with web service to find easier a velo bleu using statistics.",
+    "type": "project",
+    "require": {
+        "silex/silex": "2.1.0",
+        "doctrine/dbal": "2.5.12"
+    },
+    "autoload" : {
+        "psr-4": {"Ntorre\\Velobleu\\": "site/src"}
+    },
+    "config": {
+        "vendor-dir": "site/vendor"
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "nicolastorre",
+            "email": "nico.torre.project@gmail.com"
+        }
+    ]
+}
