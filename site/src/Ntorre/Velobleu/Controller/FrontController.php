@@ -10,7 +10,7 @@ use GuzzleHttp\Client as  GuzzleClient;
  * Class FrontController
  * @package Ntorre\Velobleu\Controller
  */
-class FrontController
+class FrontController extends DefaultController
 {
     /**
      * @param Request $request
