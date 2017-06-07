@@ -7,10 +7,10 @@ use GuzzleHttp\Client as  GuzzleClient;
 
 
 /**
- * Class FrontController
+ * Class ApiController
  * @package Ntorre\Velobleu\Controller
  */
-class FrontController
+class ApiController
 {
     /**
      * @param Request $request
@@ -19,8 +19,8 @@ class FrontController
      */
     public function indexAction(Request $request, Application $app) {
 
-        return $app['twig']->render('Front/index.html.twig', array(
-            'data' => "test"
-        ));
+        $responseData = $app['veloBleuService']->getAllStation();
+
+        return $app->json($responseData);
     }
 }
