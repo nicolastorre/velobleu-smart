@@ -5,10 +5,12 @@
     "require": {
         "silex/silex": "2.1.0",
         "doctrine/dbal": "2.5.12",
-        "guzzlehttp/guzzle": "6.2.3"
+        "guzzlehttp/guzzle": "6.2.3",
+        "twig/twig": "2.4.2",
+        "symfony/twig-bridge": "2.8.21"
     },
     "autoload" : {
-        "psr-4": {"Ntorre\\Velobleu\\": "site/src"}
+        "psr-4": {"Ntorre\\Velobleu\\": "site/src/Ntorre/Velobleu"}
     },
     "config": {
         "vendor-dir": "site/vendor"
