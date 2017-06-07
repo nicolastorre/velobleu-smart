@@ -10,7 +10,7 @@ use GuzzleHttp\Client as  GuzzleClient;
  * Class ApiController
  * @package Ntorre\Velobleu\Controller
  */
-class ApiController
+class ApiController extends DefaultController
 {
     /**
      * @param Request $request
