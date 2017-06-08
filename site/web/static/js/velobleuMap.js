@@ -46,6 +46,20 @@
             });
 
             /**
+             * Get velobleu station stat
+             */
+            this.$el.on('model_stat_station', function(e, params) {
+               that.model.getStationStat(params.id_station);
+            });
+
+            /**
+             * Display velobleu station stat
+             */
+            this.$el.on('view_stat_station', function(e, params) {
+               that.view.displayStationStat(params.data);
+            });
+
+            /**
              * start the spinner
              */
             this.$el.on("start_spinner", function() {
@@ -115,7 +129,8 @@
 
             this.stationList = null;
             this.ajaxSent = false;
-            this.apiURL = "api/velobleu/station";
+            this.realApiURL = "api/velobleu/station";
+            this.stationStatApiURL = "http://velobleu.local/api/stat/station/";
         },
 
         /**
@@ -129,13 +144,42 @@
                 that.$el.trigger('start_spinner');
 
                 $.ajax({
-                    url: that.apiURL,
+                    url: that.realApiURL,
                     type: "GET",
                     success: function(data) {
 
                         that.stationList = data.stand;
                         that.$el.trigger('velobleu_station_all');
                         that.$el.trigger('stop_spinner');
+                        that.ajaxSent = false;
+                    },
+                    error: function(xhr, ajaxOptions, thrownError) {
+
+                        that.$el.trigger('stop_spinner');
+                        alert('Erreur API!');
+                    }
+                });
+            }
+        },
+
+        /**
+         * Get stat for one velo bleu station
+         */
+        getStationStat: function(id_station) {
+            var that = this;
+
+            if(!this.ajaxSent) {
+                this.ajaxSent = true;
+                that.$el.trigger('start_spinner');
+
+                $.ajax({
+                    url: that.stationStatApiURL + id_station,
+                    type: "GET",
+                    success: function(data) {
+
+                        that.$el.trigger('stop_spinner');
+                        that.$el.trigger('view_stat_station', {data: data});
+                        that.ajaxSent = false;
                     },
                     error: function(xhr, ajaxOptions, thrownError) {
 
@@ -164,6 +208,7 @@
          * Init AppView
          */
         init: function() {
+            this.$el = $("#app");
 
             this.map = null;
             this.markerList = null;
@@ -235,9 +280,61 @@
                     that.markerList[value.id] = marker;
 
                     google.maps.event.addListener(that.markerList[value.id], 'click', function (e) {
-                        that.infowindow.setContent("<h5>" + that.formatTxtUri(value.name) + " - " + that.formatTxtUri(value.wcom) + "</h5>"+ (value.disp === "1" ? "<p>station disponible</p>" : "<p>station indispoonible</p>" ) + (value.neutral === "1" ? "<p>station neutralisé</p>" : "" ) +"<ul><li>Vélos disponibles : " + value.ab + "</li><li>Places libres disponibles : " + value.ap + "</li><li>Capacité total : " + value.tc + "</li><li>Capacité disponible : " + value.ac + "</li></ul>");
+                        that.infowindow.setContent("<h5>" + that.formatTxtUri(value.name) + " - " + that.formatTxtUri(value.wcom) + "</h5>"+
+                            (value.disp === "1" ? "<p>station disponible</p>" : "<p>station indispoonible</p>" ) +
+                            (value.neutral === "1" ? "<p>station neutralisé</p>" : "" ) +
+                            "<ul>" +
+                                "<li>Vélos disponibles : " + value.ab + "</li>" +
+                                "<li>Places libres disponibles : " + value.ap + "</li>" +
+                                "<li>Capacité total : " + value.tc + "</li>" +
+                                "<li>Capacité disponible : " + value.ac + "</li>" +
+                            "</ul>" +
+                            "<canvas id='station-chart' width='400' height='300'></canvas>");
                         that.infowindow.open(that.map, this);
+                        that.$el.trigger('model_stat_station', {id_station: value.id});
                     });
+                }
+            });
+        },
+
+        displayStationStat: function(data) {
+            var ab = [];
+            var ap = [];
+            var datetime = [];
+
+            $.each(data, function(i, item) {
+                ab.push(item.available_bike);
+                ap.push(item.available_parking);
+                datetime.push(item.datetime);
+            });
+            var ctx = document.getElementById("station-chart").getContext('2d');
+            var stationStatChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: datetime,
+                    datasets: [{
+                        label: 'Available bike',
+                        data: ab,
+                        backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                        borderColor: 'rgba(54, 162, 235, 1)',
+                        borderWidth: 1
+                    },
+                        {
+                            label: 'Available parking',
+                            data: ap,
+                            backgroundColor: 'rgba(255, 206, 86, 0.2)',
+                            borderColor: 'rgba(255, 206, 86, 1)',
+                            borderWidth: 1
+                        }]
+                },
+                options: {
+                    scales: {
+                        yAxes: [{
+                            ticks: {
+                                beginAtZero:true
+                            }
+                        }]
+                    }
                 }
             });
         }

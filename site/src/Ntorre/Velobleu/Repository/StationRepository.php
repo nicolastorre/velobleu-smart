@@ -1,7 +1,7 @@
 <?php
 namespace Ntorre\Velobleu\Repository;
 
-use Ntorre\velobleu\Entity\Station;
+use Ntorre\Velobleu\Entity\Station;
 
 /**
  * Class ArticleRepository
