@@ -13,3 +13,6 @@ $app['db.options'] = array(
 
 // enable the debug mode
 $app['debug'] = true;
+
+// Cron token
+$app['cron.token'] = "2R4hI05TTyOVy2l3vZ33gcvZcqG7TwAw";

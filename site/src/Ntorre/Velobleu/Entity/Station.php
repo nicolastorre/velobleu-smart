@@ -205,4 +205,19 @@ class Station extends Entity
     {
         $this->available_parking = $available_parking;
     }
+
+    public function toArray() {
+        $data = array();
+        $data['id'] = $this->getId();
+        $data['id_station'] = $this->getIdStation();
+        $data['datetime'] = $this->getDatetime();
+        $data['disp'] = $this->isDisp();
+        $data['neutral'] = $this->isNeutral();
+        $data['total_capacity'] = $this->getTotalCapacity();
+        $data['available_capacity'] = $this->getAvailableCapacity();
+        $data['available_bike'] = $this->getAvailableBike();
+        $data['available_parking'] = $this->getAvailableParking();
+
+        return $data;
+    }
 }

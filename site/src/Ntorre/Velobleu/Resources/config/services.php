@@ -15,7 +15,7 @@ $app['frontController'] = function() use($app) {
     return new Ntorre\Velobleu\Controller\FrontController();
 };
 $app['apiController'] = function() use($app) {
-    return new Ntorre\Velobleu\Controller\ApiController();
+    return new Ntorre\Velobleu\Controller\ApiController(array('stationRepository' => $app['stationRepository']));
 };
 $app['cronController'] = function() use($app) {
     return new Ntorre\Velobleu\Controller\CronController(array('stationRepository' => $app['stationRepository']));

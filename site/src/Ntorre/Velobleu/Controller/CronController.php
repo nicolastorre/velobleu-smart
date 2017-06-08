@@ -3,6 +3,7 @@ namespace Ntorre\Velobleu\Controller;
 
 use Silex\Application;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Ntorre\Velobleu\Entity\Station;
 
 
@@ -17,7 +18,11 @@ class CronController extends DefaultController
      * @param Application $app
      * @return mixed
      */
-    public function veloBleuStateAction(Request $request, Application $app) {
+    public function veloBleuStateAction(Request $request, Application $app, $token) {
+
+        if(!isset($app['cron.token']) || $app['cron.token'] !== $token) {
+            return new Response('Forbidden access', 401);
+        }
 
         $responseData = $app['veloBleuService']->getAllStation();
         foreach($responseData->stand as $stand) {
