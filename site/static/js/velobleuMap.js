@@ -130,7 +130,7 @@
             this.stationList = null;
             this.ajaxSent = false;
             this.realApiURL = "api/velobleu/station";
-            this.stationStatApiURL = "http://velobleu.local/api/stat/station/";
+            this.stationStatApiURL = "api/stat/station/";
         },
 
         /**
