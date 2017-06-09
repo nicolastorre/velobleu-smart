@@ -29,7 +29,7 @@ SET time_zone = "+00:00";
 CREATE TABLE `Ntorre_Velobleu_Entity_Station` (
   `id` int(10) UNSIGNED NOT NULL,
   `id_station` mediumint(8) UNSIGNED NOT NULL,
-  `date` int(11) NOT NULL,
+  `datetime` datetime NOT NULL,
   `disp` tinyint(1) NOT NULL,
   `neutral` tinyint(1) NOT NULL,
   `total_capacity` tinyint(3) UNSIGNED NOT NULL,
