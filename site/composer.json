@@ -10,10 +10,7 @@
         "symfony/twig-bridge": "2.8.21"
     },
     "autoload" : {
-        "psr-4": {"Ntorre\\Velobleu\\": "site/src/Ntorre/Velobleu"}
-    },
-    "config": {
-        "vendor-dir": "site/vendor"
+        "psr-4": {"Ntorre\\Velobleu\\": "src/Ntorre/Velobleu"}
     },
     "license": "MIT",
     "authors": [
