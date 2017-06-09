@@ -39,6 +39,8 @@ class CronController extends DefaultController
             $this->repository['stationRepository']->save($station);
         }
 
+        $this->repository['stationRepository']->cleanRecords();
+
         return $app->json(array('error' => false, 'response' => 'Velo bleu station data saved!'));
     }
 }

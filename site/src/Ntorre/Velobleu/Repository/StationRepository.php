@@ -10,6 +10,16 @@ use Ntorre\Velobleu\Entity\Station;
 class StationRepository extends DefaultRepository
 {
     /**
+     * Clean station stat records
+     */
+    public function cleanRecords() {
+
+        $stmt = $this->db->executeQuery("DELETE FROM " . $this->tableName . " WHERE DATEDIFF(CURRENT_DATE, datetime) > 3");
+
+        return true;
+    }
+
+    /**
      * Build object Station
      *
      * @param $row
