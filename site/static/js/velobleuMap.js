@@ -60,6 +60,14 @@
             });
 
             /**
+             * Display velobleu station heatmap
+             */
+            this.$el.on('click', '#app-heatmap', function(e) {
+                e.preventDefault();
+                that.view.displayHeatmap(that.model.stationList);
+            });
+
+            /**
              * start the spinner
              */
             this.$el.on("start_spinner", function() {
@@ -295,6 +303,8 @@
                     });
                 }
             });
+
+            this.displayView($("#velobleu-map"), $("#tpl-app-toolbox"), {});
         },
 
         displayStationStat: function(data) {
@@ -337,6 +347,30 @@
                     }
                 }
             });
+        },
+
+        /**
+         * Display velo bleu station heatmap
+         *
+         * @param stationList
+         */
+        displayHeatmap: function(stationList) {
+
+            var data = [];
+
+            $.each(stationList, function(i, station) {
+                for(var j = 0; j < station.ab; j++) {
+                    data.push(new google.maps.LatLng(parseFloat(station.lat), parseFloat(station.lng)));
+                }
+            });
+
+            var heatmap = new google.maps.visualization.HeatmapLayer({
+                data: data,
+                map: this.map
+            });
+
+            heatmap.set('radius', 70);
+            heatmap.set('opacity', 0.9);
         }
     };
 
